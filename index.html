@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farrel Gavin — Evaluasi 3 Kompar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo"> HR &amp; SpO2<br>Parallel Processor</div>
+      <div class="sidebar-sub">Farrel Gavin · 152024016</div>
+    </div>
+    <div class="search-wrap">
+      <input id="search" type="text" placeholder="Cari halaman..." />
+    </div>
+    <div class="nav-label">Navigasi</div>
+    <div class="nav-item" data-page="home">      <span class="nav-icon">🏠</span> Home</div>
+    <div class="nav-item" data-page="program">   <span class="nav-icon">🐍</span> Program Python</div>
+    <div class="nav-item" data-page="konsep">    <span class="nav-icon">⚙️</span> Konsep Paralel</div>
+    <div class="nav-item" data-page="output">    <span class="nav-icon">📊</span> Contoh Output</div>
+    <div class="nav-item" data-page="tentang">   <span class="nav-icon">👤</span> Tentang</div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- ════════════════ HOME ════════════════ -->
+    <section id="home" class="page">
+      <div class="hero">
+        <div class="hero-tag">Evaluasi 3 · IFB 206 Komputasi Paralel</div>
+        <h1>Heart Rate &amp; <span>SpO2</span><br>Parallel Processor</h1>
+        <p>
+          Simulasi pemrosesan data detak jantung dan saturasi oksigen dari beberapa pasien
+          secara <strong>paralel</strong> menggunakan <code>multiprocessing</code> Python.
+          Program ini membuktikan peningkatan performa signifikan dibanding pemrosesan sekuensial.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-label">Jumlah Pasien</div>
+          <div class="card-value">4</div>
+          <div class="card-desc">diproses secara bersamaan</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Sampel per Pasien</div>
+          <div class="card-value">500</div>
+          <div class="card-desc">titik data HR + SpO2</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Waktu Paralel</div>
+          <div class="card-value">~1 dtk</div>
+          <div class="card-desc">vs ~4 dtk sekuensial</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Speedup</div>
+          <div class="card-value">~4x</div>
+          <div class="card-desc">lebih cepat dengan paralel</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">📁 Struktur Proyek</div>
+        <table>
+          <thead><tr><th>File</th><th>Deskripsi</th></tr></thead>
+          <tbody>
+            <tr><td><code>main.py</code></td><td>Program utama komputasi paralel</td></tr>
+            <tr><td><code>index.html</code></td><td>Halaman dokumentasi web ini</td></tr>
+            <tr><td><code>style.css</code></td><td>Stylesheet interface web</td></tr>
+            <tr><td><code>app.js</code></td><td>Logika navigasi halaman</td></tr>
+            <tr><td><code>README.md</code></td><td>Dokumentasi proyek (GitHub)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════════════ PROGRAM ════════════════ -->
+    <section id="program" class="page">
+      <div class="hero">
+        <div class="hero-tag">Source Code</div>
+        <h1>Program <span>Python</span></h1>
+        <p>Implementasi komputasi paralel menggunakan <code>multiprocessing.Pool</code> untuk memproses data kesehatan pasien secara bersamaan.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">📦 Import Library</div>
+        <pre><code><span class="kw">import</span> <span class="var">multiprocessing</span>
+<span class="kw">import</span> <span class="var">time</span>
+<span class="kw">import</span> <span class="var">random</span></code></pre>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🔧 Fungsi Worker</div>
+        <pre><code><span class="kw">def</span> <span class="fn">process_patient_data</span>(patient_info):
+    patient_id, hr_data, spo2_data = patient_info
+    process_name = multiprocessing.<span class="fn">current_process</span>().name
+
+    <span class="fn">print</span>(<span class="str">f"[{process_name}] Memproses Pasien {patient_id}..."</span>)
+    time.<span class="fn">sleep</span>(<span class="num">1</span>)  <span class="cm"># Simulasi komputasi berat</span>
+
+    avg_hr   = <span class="fn">sum</span>(hr_data)   / <span class="fn">len</span>(hr_data)
+    avg_spo2 = <span class="fn">sum</span>(spo2_data) / <span class="fn">len</span>(spo2_data)
+
+    <span class="cm"># Tentukan status kesehatan</span>
+    <span class="kw">if</span>   avg_hr &lt; <span class="num">60</span>:  hr_status = <span class="str">"Bradikardia"</span>
+    <span class="kw">elif</span> avg_hr &gt; <span class="num">100</span>: hr_status = <span class="str">"Takikardia"</span>
+    <span class="kw">else</span>:              hr_status = <span class="str">"Normal"</span>
+
+    spo2_status = <span class="str">"Normal"</span> <span class="kw">if</span> avg_spo2 &gt;= <span class="num">95</span> <span class="kw">else</span> <span class="str">"Hipoksemia"</span>
+
+    <span class="kw">return</span> {
+        <span class="str">"patient_id"</span> : patient_id,
+        <span class="str">"avg_hr"</span>     : <span class="fn">round</span>(avg_hr, <span class="num">2</span>),
+        <span class="str">"hr_status"</span>  : hr_status,
+        <span class="str">"avg_spo2"</span>   : <span class="fn">round</span>(avg_spo2, <span class="num">2</span>),
+        <span class="str">"spo2_status"</span>: spo2_status,
+    }</code></pre>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⚡ Inti Komputasi Paralel</div>
+        <pre><code><span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    <span class="cm"># Bangkitkan data 4 pasien</span>
+    patients = [<span class="fn">generate_patient_data</span>(<span class="str">f"P{i+1:02d}"</span>) <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>)]
+
+    start_time = time.<span class="fn">time</span>()
+
+    <span class="cm"># Proses PARALEL — inti dari program ini</span>
+    <span class="kw">with</span> multiprocessing.<span class="fn">Pool</span>(processes=<span class="num">4</span>) <span class="kw">as</span> pool:
+        results = pool.<span class="fn">map</span>(process_patient_data, patients)
+
+    end_time = time.<span class="fn">time</span>()
+
+    <span class="kw">for</span> r <span class="kw">in</span> results:
+        <span class="fn">print</span>(<span class="str">f"Pasien {r['patient_id']}: HR={r['avg_hr']} → {r['hr_status']}"</span>)
+        <span class="fn">print</span>(<span class="str">f"               SpO2={r['avg_spo2']}% → {r['spo2_status']}"</span>)</code></pre>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🏃 Cara Menjalankan</div>
+        <pre><code><span class="cm"># Prasyarat: Python 3.x (tidak perlu install tambahan)</span>
+python main.py</code></pre>
+      </div>
+    </section>
+
+    <!-- ════════════════ KONSEP ════════════════ -->
+    <section id="konsep" class="page">
+      <div class="hero">
+        <div class="hero-tag">Teori</div>
+        <h1>Konsep <span>Komputasi Paralel</span></h1>
+        <p>Memahami cara kerja multiprocessing Python dan mengapa ia lebih unggul untuk tugas CPU-bound.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🔄 Alur Kerja Program</div>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-box"><strong>Input</strong>Data 4 pasien (500 titik HR + SpO2 tiap pasien)</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-box"><strong>Pool(4)</strong>Buat 4 worker process di core berbeda</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-box"><strong>pool.map()</strong>Distribusikan tiap pasien ke worker secara PARALEL</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-box"><strong>Output</strong>Rata-rata HR, SpO2, dan status kesehatan tiap pasien</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⚖️ threading vs multiprocessing</div>
+        <table>
+          <thead>
+            <tr><th>Aspek</th><th>threading</th><th>multiprocessing</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cocok untuk</td>
+              <td>I/O-bound (file, network)</td>
+              <td><span class="badge badge-green">CPU-bound</span> komputasi berat</td>
+            </tr>
+            <tr>
+              <td>GIL Python</td>
+              <td><span class="badge badge-red">Terkena</span> tidak benar-benar paralel</td>
+              <td><span class="badge badge-green">Bebas</span> tiap proses punya GIL sendiri</td>
+            </tr>
+            <tr>
+              <td>Memori</td>
+              <td>Shared — rawan race condition</td>
+              <td>Terpisah per proses — aman</td>
+            </tr>
+            <tr>
+              <td>Overhead</td>
+              <td>Rendah</td>
+              <td>Lebih tinggi (spawn process)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:.82rem;color:var(--text-muted);">
+          Pemrosesan sinyal sensor adalah <strong style="color:var(--accent)">CPU-bound</strong>, sehingga <code>multiprocessing</code> adalah pilihan yang tepat.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🩺 Logika Status Kesehatan</div>
+        <table>
+          <thead><tr><th>Parameter</th><th>Rentang</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Heart Rate</td><td>&lt; 60 bpm</td><td><span class="badge badge-red">Bradikardia</span></td></tr>
+            <tr><td>Heart Rate</td><td>60 – 100 bpm</td><td><span class="badge badge-green">Normal</span></td></tr>
+            <tr><td>Heart Rate</td><td>&gt; 100 bpm</td><td><span class="badge badge-red">Takikardia</span></td></tr>
+            <tr><td>SpO2</td><td>≥ 95 %</td><td><span class="badge badge-green">Normal</span></td></tr>
+            <tr><td>SpO2</td><td>&lt; 95 %</td><td><span class="badge badge-red">Hipoksemia</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════════════ OUTPUT ════════════════ -->
+    <section id="output" class="page">
+      <div class="hero">
+        <div class="hero-tag">Demo</div>
+        <h1>Contoh <span>Output</span></h1>
+        <p>Hasil eksekusi <code>main.py</code> dengan 4 pasien diproses secara paralel.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🖥️ Terminal Output</div>
+        <div class="output-block">=======================================================
+  Heart Rate &amp; SpO2 Parallel Processor
+  Farrel Gavin — 152024016
+=======================================================
+
+Memulai komputasi paralel untuk 4 pasien...
+
+[SpawnPoolWorker-1] Memproses data Pasien P01 (500 sampel)...
+[SpawnPoolWorker-2] Memproses data Pasien P02 (500 sampel)...
+[SpawnPoolWorker-3] Memproses data Pasien P03 (500 sampel)...
+[SpawnPoolWorker-4] Memproses data Pasien P04 (500 sampel)...
+
+=======================================================
+  HASIL PEMROSESAN
+=======================================================
+
+Pasien P01:
+  Heart Rate : 82.47 bpm  → Normal
+  SpO2       : 96.31 %    → Normal
+
+Pasien P02:
+  Heart Rate : 97.15 bpm  → Normal
+  SpO2       : 93.82 %    → Hipoksemia (rendah)
+
+Pasien P03:
+  Heart Rate : 58.90 bpm  → Bradikardia (terlalu lambat)
+  SpO2       : 97.44 %    → Normal
+
+Pasien P04:
+  Heart Rate : 103.21 bpm → Takikardia (terlalu cepat)
+  SpO2       : 95.10 %    → Normal
+
+Waktu eksekusi (Paralel) : 1.0312 detik
+Estimasi sekuensial      : ~4 detik
+Speedup                  : ~3.9x lebih cepat
+=======================================================</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">📈 Analisis Performa</div>
+        <div class="cards">
+          <div class="card">
+            <div class="card-label">Sekuensial</div>
+            <div class="card-value" style="color:var(--accent2)">~4 dtk</div>
+            <div class="card-desc">Pasien diproses satu per satu</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Paralel</div>
+            <div class="card-value" style="color:var(--accent3)">~1 dtk</div>
+            <div class="card-desc">Semua pasien diproses bersamaan</div>
+          </div>
+        </div>
+        <p style="font-size:.82rem;color:var(--text-muted);">
+          ⚡ Dengan 4 proses paralel, waktu eksekusi berkurang dari ~4 detik menjadi ~1 detik —
+          speedup hampir <strong style="color:var(--accent)">4× lipat</strong>.
+          Semakin banyak pasien/data, semakin besar keuntungan paralelisme.
+        </p>
+      </div>
+    </section>
+
+    <!-- ════════════════ TENTANG ════════════════ -->
+    <section id="tentang" class="page">
+      <div class="hero">
+        <div class="hero-tag">Profil</div>
+        <h1>Tentang <span>Project</span></h1>
+        <p>Informasi mahasiswa dan detail mata kuliah.</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">FG</div>
+        <div>
+          <div class="profile-name">Farrel Gavin</div>
+          <div class="profile-nrp">NRP 152024016</div>
+          <div class="profile-info">
+            Institut Teknologi Nasional (ITENAS) Bandung<br>
+            Program Studi Informatika
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">📋 Detail Evaluasi</div>
+        <table>
+          <thead><tr><th>Keterangan</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Mata Kuliah</td><td>IFB 206 Komputasi Paralel</td></tr>
+            <tr><td>Evaluasi</td><td>Evaluasi 3 — Semester Genap 2025/2026</td></tr>
+            <tr><td>Dosen</td><td>Lisa Kristiana, Ph.D</td></tr>
+            <tr><td>Tanggal</td><td>4 Juni 2026</td></tr>
+            <tr><td>Topik</td><td>Multiprocessing, Health Data Processing</td></tr>
+            <tr><td>Bahasa</td><td>Python 3.11, HTML5, CSS3, JavaScript</td></tr>
+            <tr><td>Institusi</td><td>ITENAS Bandung</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🔗 Repository</div>
+        <p style="font-size:.85rem;color:var(--text-muted);line-height:1.8;">
+          GitHub Repository:<br>
+          <a href="https://github.com/Student-Embedded-Control-and-AI-Fest/CuffnCode"
+             style="color:var(--accent);text-decoration:none;"
+             target="_blank">
+            github.com/Student-Embedded-Control-and-AI-Fest/CuffnCode
+          </a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
