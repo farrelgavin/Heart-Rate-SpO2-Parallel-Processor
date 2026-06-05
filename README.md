@@ -1,4 +1,4 @@
-# 💓 Evaluasi 3 Kompar — Parallel Heart Rate & SpO2 Processor
+# Evaluasi 3 Kompar — Parallel Heart Rate & SpO2 Processor
 
 > Proyek ini merupakan bagian dari **Evaluasi 3** mata kuliah **IFB 206 Komputasi Paralel**.  
 > Fokus utama: implementasi **komputasi paralel** menggunakan `multiprocessing` Python untuk memproses data kesehatan (Heart Rate & SpO2) dari beberapa pasien secara bersamaan.
