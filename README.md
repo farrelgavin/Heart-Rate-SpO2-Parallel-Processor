@@ -48,21 +48,7 @@ Setiap pasien memiliki 500 titik data sensor. Dengan komputasi paralel, semua pa
 
 ### Alur Kerja Program
 
-```
-Data 4 Pasien (masing-masing 500 titik HR + SpO2)
-        │
-        ▼
-┌──────────────────────────────────────┐
-│         multiprocessing.Pool(4)      │
-│  ┌─────────┐  ┌─────────┐           │
-│  │ Core 1  │  │ Core 2  │  ...dst   │  ← berjalan BERSAMAAN
-│  │Pasien P1│  │Pasien P2│           │
-│  └─────────┘  └─────────┘           │
-└──────────────────────────────────────┘
-        │
-        ▼
-  Hasil: avg HR, avg SpO2, status tiap pasien
-```
+![Flowchart Alur Kerja](flowchart.png)
 
 ### Penjelasan Kode
 
